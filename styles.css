@@ -3,6 +3,24 @@
   padding: 0;
   box-sizing: border-box;
 }
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
 
 body {
   font-family: 'Mulish', sans-serif;
@@ -31,11 +49,7 @@ body {
   fill: white;
 }
 
-#pianoRollContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+
 
 h1 {
   margin-bottom: 20px;
@@ -59,10 +73,22 @@ button {
   position: relative;  /* Required for the top movement on hover */
   transition: all 1.1s ease;  /* Transition for all properties */
 }
+.displayContainer {
+  width: 1400px;
+  margin: auto;
+  display: grid;
+
+}
+/* ... Add class to .displayContainer After Choose Piano ... */
+
+.displayContainerMainState {
+  grid-template-columns: auto 30%;
+}
 
 #buttonContainer {
   display: flex;
   justify-content: center;
+  
 }
 
 button:hover {
@@ -71,16 +97,58 @@ button:hover {
 
 .piano-roll-svg {
   border: 2px solid #381815;
+  width: 95%;
 }
 
 .piano-roll-card {
   border: 1px solid #ccc;
   margin-bottom: 10px;
   padding: 10px;
-  width: 50%;
+  width: 80%;
   box-sizing: border-box;
+  border-radius: 3px;
+  
 }
 
 .description {
   margin-top: 10px;
+  padding: 10px;
+  font-weight: bold;
+}
+
+
+.pianoRollContainer {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  border-radius: 15px;
+  flex-direction: row;
+  padding: 10px;
+  margin: auto;
+  width: 100%;
+  
+  
+}
+/* Class Added after Click On Card For #pianoRollContainer */
+.painRollMainState {
+  overflow-y:scroll;
+  margin-left: 25px;
+  grid-template-columns: 100%;
+  height: 70vh;
+
+}
+
+
+
+.currentPianoContainer {
+  
+  display: none;
+  
+}
+/* Class Added after Click On Card For #currentPianoContainer */
+.currentPianoMainState {
+  width: 100%;
+  height: 70vh;
+  background-color: red;
+  display: block;
+  
 }

@@ -1,5 +1,11 @@
 import PianoRoll from './pianoroll.js';
 
+
+  // Initialize the variables To get the elements from the DOM(id)
+  const pianoRollContainer = document.getElementById('pianoRollContainer');
+  const displayContainer = document.getElementById('displayContainer');
+  const currentPianoContainer = document.getElementById('currentPianoContainer');
+
 class PianoRollDisplay {
   constructor(csvURL) {
     this.csvURL = csvURL;
@@ -21,12 +27,17 @@ class PianoRollDisplay {
   preparePianoRollCard(rollId) {
     const cardDiv = document.createElement('div');
     cardDiv.classList.add('piano-roll-card');
+    cardDiv.setAttribute('pianoIndex', rollId);
+    cardDiv.addEventListener('click', getCurrentPainRoll);
+    cardDiv.addEventListener('click', changeDisplay);
+    
 
     // Create and append other elements to the card container as needed
     const descriptionDiv = document.createElement('div');
     descriptionDiv.classList.add('description');
     descriptionDiv.textContent = `This is a piano roll number ${rollId}`;
     cardDiv.appendChild(descriptionDiv);
+    
 
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.classList.add('piano-roll-svg');
@@ -62,3 +73,33 @@ document.getElementById('loadCSV').addEventListener('click', async () => {
   const csvToSVG = new PianoRollDisplay();
   await csvToSVG.generateSVGs();
 });
+
+// This Function To get the current piano roll(index)
+function showCurrentPianoRoll() {
+  const currentPianoContainer = document.getElementById('currentPianoContainer');
+  currentPianoContainer.innerHTML = '';
+  const { cardDiv, svg } = this.preparePianoRollCard(it)
+
+  currentPianoContainer.appendChild(cardDiv);
+  const roll = new PianoRoll(svg, partData);
+}
+
+function getCurrentPainRoll(id) {
+  id = this.getAttribute('pianoIndex');
+
+
+  console.log(element);
+}
+
+
+// style , add classes to change to main display 
+function changeDisplay() {
+  pianoRollContainer.classList.add('painRollMainState');
+  displayContainer.classList.add('displayContainerMainState');
+  currentPianoContainer.classList.add('currentPianoMainState');
+}
+
+
+
+// I need Function to get the current piano roll and display it in the main display
+
