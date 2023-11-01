@@ -25,17 +25,19 @@ class PianoRollDisplay {
   }
 
   preparePianoRollCard(rollId) {
+    rollId += 1    
     const cardDiv = document.createElement('div');
     cardDiv.classList.add('piano-roll-card');
     cardDiv.setAttribute('pianoIndex', rollId);
-    cardDiv.addEventListener('click', getCurrentPainRoll);
-    cardDiv.addEventListener('click', changeDisplay);
+    cardDiv.cloneNode(true);
+    
+    
     
 
     // Create and append other elements to the card container as needed
     const descriptionDiv = document.createElement('div');
     descriptionDiv.classList.add('description');
-    descriptionDiv.textContent = `This is a piano roll number ${rollId}`;
+    descriptionDiv.textContent = `This is a piano roll number ${rollId} `;
     cardDiv.appendChild(descriptionDiv);
     
 
@@ -43,11 +45,14 @@ class PianoRollDisplay {
     svg.classList.add('piano-roll-svg');
     svg.setAttribute('width', '80%');
     svg.setAttribute('height', '150');
-
     // Append the SVG to the card container
     cardDiv.appendChild(svg);
-
+    cardDiv.addEventListener('click', getCurrentPainRoll);
+    cardDiv.addEventListener('click', changeDisplay);
     return { cardDiv, svg }
+   
+    
+
   }
 
   async generateSVGs() {
@@ -75,21 +80,33 @@ document.getElementById('loadCSV').addEventListener('click', async () => {
 });
 
 // This Function To get the current piano roll(index)
-function showCurrentPianoRoll() {
-  const currentPianoContainer = document.getElementById('currentPianoContainer');
-  currentPianoContainer.innerHTML = '';
-  const { cardDiv, svg } = this.preparePianoRollCard(it)
-
-  currentPianoContainer.appendChild(cardDiv);
-  const roll = new PianoRoll(svg, partData);
+// function showCurrentPianoRoll({ svg, rollId , descriptionDiv}) {
+  
+// }
+function clearElement(element) {
+  while (element.firstChild) {
+        element.removeChild(element.firstChild);
+  }
 }
 
-function getCurrentPainRoll(id) {
-  id = this.getAttribute('pianoIndex');
+function getCurrentPainRoll(rollId , svg , descriptionDiv) {
+  rollId = this.getAttribute('pianoIndex');
+  svg = this.querySelector('svg');
+  descriptionDiv = this.querySelector('.description');
+ 
+  const largeSvgContainer = document.getElementById('large-svg-container');
+  const cardDescription = document.getElementById('card-description');
+  const cloneSvg = svg.cloneNode(true);
+  const cloneDescription = descriptionDiv.cloneNode(true);
+   clearElement(largeSvgContainer);
+  clearElement(cardDescription);
+  largeSvgContainer.appendChild(cloneSvg);
+  cardDescription.appendChild(cloneDescription);
+  
 
-
-  console.log(element);
+  console.log(rollId , svg , descriptionDiv);
 }
+
 
 
 // style , add classes to change to main display 
@@ -103,3 +120,4 @@ function changeDisplay() {
 
 // I need Function to get the current piano roll and display it in the main display
 
+//creating Main Card
