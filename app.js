@@ -1,6 +1,7 @@
 import PianoRoll from './pianoroll.js';
 
 
+
   // Initialize the variables To get the elements from the DOM(id)
   const pianoRollContainer = document.getElementById('pianoRollContainer');
   const displayContainer = document.getElementById('displayContainer');
@@ -45,6 +46,7 @@ class PianoRollDisplay {
     svg.classList.add('piano-roll-svg');
     svg.setAttribute('width', '80%');
     svg.setAttribute('height', '150');
+    
     // Append the SVG to the card container
     cardDiv.appendChild(svg);
     cardDiv.addEventListener('click', getCurrentPainRoll);
@@ -105,6 +107,7 @@ function getCurrentPainRoll(rollId , svg , descriptionDiv) {
   
 
   console.log(rollId , svg , descriptionDiv);
+ 
 }
 
 
@@ -117,7 +120,87 @@ function changeDisplay() {
 }
 
 
+const clientX = document.getElementById('clientX');
 
-// I need Function to get the current piano roll and display it in the main display
 
-//creating Main Card
+// Get First Mouse Position
+let mouseenter = clientX.addEventListener('mouseenter', function (event) {
+    mouseenter = event.clientX;
+    
+    console.log("mouse enter :" + mouseenter, event.target);
+    return mouseenter;
+
+});
+
+// Get Left Point To Start Drawing
+
+
+
+clientX.addEventListener('mousedown', function (event) {
+  let isSelected = false;
+    clientX.innerHTML = event.clientX;
+    const newDiv = document.createElement('div');
+    clientX.appendChild(newDiv);
+    clientX.addEventListener('mousemove', function (event) {
+      const startPoint = event.clientX;
+      const endPoint = startPoint;
+        newDiv.classList.add('dot');
+        let leftPoint = document.body.clientWidth - clientX.clientWidth;
+        let rightPoint = document.body.clientWidth - mouseenter;
+        newDiv.style.backgroundColor = "red";
+        newDiv.style.position = "absolute";
+        let restBtn = document.createElement('button');
+        restBtn.classList.add('restBtn');
+        restBtn.innerHTML = "click to reset";
+        let stylewidth = (startPoint - mouseenter);
+        let stylewidthLeft = (mouseenter - startPoint);
+        newDiv.classList.add('newDiv');
+        console.log("d" + mouseenter);
+        console.log(startPoint, endPoint, mouseenter, stylewidth);
+        if (stylewidth > 0) {
+          
+          newDiv.style.left = mouseenter  + "px";
+          newDiv.style.width = stylewidth + 1 + "px";
+          newDiv.style.float = "left";
+          
+        }
+        isSelected = true;
+       
+        
+    
+    
+        newDiv.style.height = "100px";
+       clientX.addEventListener('mouseup', function (event) {
+            clientX.innerHTML = event.clientX;
+            console.log("mouse up");
+            isSelected = true;
+            if (isSelected) {
+                newDiv.appendChild(restBtn);
+                restBtn.addEventListener('click', function (event) {
+                
+                    
+                });
+            }
+       });
+    
+    });
+    
+        
+    
+    
+});
+
+
+clientX.addEventListener('click', function(event) {
+    clearDiv();
+});
+function clearDiv() {
+    const dots = document.querySelectorAll('.dot');
+    for (let i = 0; i < dots.length; i++) {
+        dots[i].remove();
+    }
+
+}
+clientX.addEventListener('mousenter', function(event) {
+    console.log("mouse enter");
+})
